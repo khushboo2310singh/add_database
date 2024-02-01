@@ -13,6 +13,10 @@ const reducer=(state,action)=>{
     case "add": const records=[...state.users];
                 records.push(action.payload);
                 return {...state,users:records}
+    case "del": const records=[...state.users];
+                records.splice(action.payload,1);
+                return {...state,users:records}
+      
     default:
       return state;            
   }
@@ -26,6 +30,9 @@ const App = () => {
   const handleAdd=()=>{
     dispatch({type:"add", payload:state})
   }
+  const handleDel=(i)=>{
+    dispatch({type:"del",payload:i})
+  }
   return (
     <>
     <input type="text" value={state.name} name='name' placeholder='Name' onChange={handlechange}/>
@@ -35,6 +42,7 @@ const App = () => {
       <div key={i}>
         Name---{user.name}
         Age---{user.age}
+        <button onClick={()=>handleDel(i)}>Del</button>
       </div>
     ))}
     </>
